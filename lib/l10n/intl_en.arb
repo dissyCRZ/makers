@@ -1,0 +1,11 @@
+{
+  "registration": "Регистрация",
+  "email": "Электронная почта",
+  "password": "Пароль",
+  "add_password": "Придумайте пароль",
+  "next": "Продолжить",
+  "or": "или",
+  "in_with_google": "Войти через Google",
+  "do_u_have_account": "У вас уже есть аккаунт?",
+  "come_in": "Войти"
+}
