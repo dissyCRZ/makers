@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:makers_app/features/home/widgets/tab_bar.dart';
+import 'package:makers_app/features/search/pages/search_page.dart';
 import 'package:makers_app/utils/config/colors.dart';
 
 class CustomNavigationBar extends StatefulWidget {
@@ -13,7 +14,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   int currentIndex = 0;
   final pages = [
     MyTabBar(),
-    Center(child: Text('Search'),),
+    SearchPage(),
     Center(child: Text('Profile'),),
   ];
 
@@ -39,15 +40,15 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           //     label: 'Home',
           // ),
           BottomNavigationBarItem(
-            icon: Image.asset('lib/utils/assets/icons/homeicon.png'),
+            icon: Image.asset('lib/utils/assets/icons/courses.png', color: currentIndex == 0 ? AppColor.mainBlue : AppColor.fontHintColor,),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
+            icon: Image.asset('lib/utils/assets/icons/search.png', color: currentIndex == 1 ? AppColor.mainBlue : AppColor.fontHintColor,),
             label: 'Search',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Image.asset('lib/utils/assets/icons/profile.png', color: currentIndex == 2 ? AppColor.mainBlue : AppColor.fontHintColor,),
             label: 'Profile',
           ),
         ],

@@ -3,6 +3,7 @@ import 'package:makers_app/features/home/data/client/free_courses_client.dart';
 import 'package:makers_app/features/home/data/client/paid_courses_client.dart';
 import 'package:makers_app/features/home/data/models/paid_courses.dart';
 import 'package:makers_app/features/home/widgets/courses_card.dart';
+import 'package:makers_app/utils/config/colors.dart';
 
 class PaidCoursesPage extends StatefulWidget {
   const PaidCoursesPage({super.key});
@@ -60,7 +61,9 @@ class _PaidCoursesPageState extends State<PaidCoursesPage> {
         );
       },
     ) : const Center(
-      child: CircularProgressIndicator(),
+      child: CircularProgressIndicator(
+        color: AppColor.mainBlue,
+      ),
     );
 
     //=================================

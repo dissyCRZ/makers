@@ -10,6 +10,9 @@ class RegisterUser {
   int schoolNumber;
   String schoolName;
   String studentClass;
+  String location;
+  String firstName;
+  String lastName;
 
   RegisterUser({
     required this.email,
@@ -17,6 +20,9 @@ class RegisterUser {
     required this.schoolNumber,
     required this.schoolName,
     required this.studentClass,
+    required this.location,
+    required this.firstName,
+    required this.lastName,
   });
 
   factory RegisterUser.fromJson(Map<String, dynamic> json) => RegisterUser(
@@ -25,6 +31,9 @@ class RegisterUser {
     schoolNumber: json["school_number"],
     schoolName: json["school_name"],
     studentClass: json["student_class"],
+    location: json["location"],
+    firstName: json["first_name"],
+    lastName: json["last_name"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -33,5 +42,8 @@ class RegisterUser {
     "school_number": schoolNumber,
     "school_name": schoolName,
     "student_class": studentClass,
+    "location": location,
+    "first_name": firstName,
+    "last_name": lastName,
   };
 }
