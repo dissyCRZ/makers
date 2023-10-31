@@ -28,8 +28,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "do_u_have_account":
             MessageLookupByLibrary.simpleMessage("У вас уже есть аккаунт? КГ"),
         "email": MessageLookupByLibrary.simpleMessage("Электронная почта КГ"),
+        "forgot_password":
+            MessageLookupByLibrary.simpleMessage("Забыли пароль? КГ"),
         "in_with_google":
             MessageLookupByLibrary.simpleMessage("Войти через Google КГ"),
+        "login": MessageLookupByLibrary.simpleMessage("Вход в аккаунт КГ"),
         "next": MessageLookupByLibrary.simpleMessage("Продолжить КГ"),
         "or": MessageLookupByLibrary.simpleMessage("или КГ"),
         "password": MessageLookupByLibrary.simpleMessage("Пароль КГ"),

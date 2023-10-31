@@ -51,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
                           Image.asset('lib/utils/assets/images/makers_logo.png'),
                           //const SizedBox(height: 100),
                           Expanded(child: Container(),),
-                          Text('Вход в аккаунт', style: h24Manrope),
+                          Text(S.of(context).login, style: h24Manrope),
                           const SizedBox(height: 50),
                           EmailField(text: S.of(context).email, hintText: 'example@gmail.com', controller: emailController),
                           //MyTextFormField(text: S.of(context).email, hintText: 'example@gmail.com', controller: emailController, obscureText: false,),
@@ -66,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                             child: Container(
                               alignment: Alignment.centerRight,
                               //width: double.infinity,
-                                child: Text('Забыли пароль?')
+                                child: Text(S.of(context).forgot_password)
                             ),
                           ),
                           const SizedBox(height: 15),
@@ -97,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                           ComeInButton(
                             label: 'Регистрация',
                             onPressed: () async {
-                              await Navigator.of(context).pushReplacement(MaterialPageRoute(
+                              await Navigator.of(context).push(MaterialPageRoute(
                                 builder: (_) => RegisterPage(),
                               ));
                             },

@@ -8,17 +8,23 @@ import 'package:makers_app/utils/config/texts.dart';
 import "package:flutter/foundation.dart";
 
 
-class CoursesCard extends StatelessWidget {
-  const CoursesCard({super.key, required this.id, required this.title, required this.duration, required this.numLectures, required this.videoUrl, required this.isPaid, required this.buttonText, required this.price, required this.onPressed});
+class CoursesCard extends StatefulWidget {
+  const CoursesCard({super.key, required this.id, required this.title, required this.duration, required this.numLectures, required this.isPaid, required this.buttonText, required this.price, required this.onPressed});
   final id;
   final title;
   final duration;
   final numLectures;
-  final videoUrl;
   final buttonText;
   final price;
   final isPaid;
   final void Function() onPressed;
+
+  @override
+  State<CoursesCard> createState() => _CoursesCardState();
+}
+
+class _CoursesCardState extends State<CoursesCard> {
+  bool isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -42,57 +48,35 @@ class CoursesCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: h24Manrope,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(child: Text(widget.title, style: h22Manrope,)),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isFavorite ? isFavorite = false : isFavorite = true;
+                      });
+                    },
+                      child: isFavorite ? Image.asset('lib/utils/assets/icons/favorite_true.png') : Image.asset('lib/utils/assets/icons/favorite_false.png')),
+                ],
+              ),
               const SizedBox(height: 18),
-              Text('Разработка веб-приложения', style: h16Manrope,),
-              const SizedBox(height: 16),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(right: 5),
-                      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                      decoration: BoxDecoration(
-                        borderRadius: borderRMax,
-                        border: Border.all(color: AppColor.borderGray),
-                      ),
-                      child: const Text('JavaScript', style: h13Manrope,),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(right: 5),
-                      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                      decoration: BoxDecoration(
-                        borderRadius: borderRMax,
-                        border: Border.all(color: AppColor.borderGray),
-                      ),
-                      child: const Text('JavaScript', style: h13Manrope,),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(right: 5),
-                      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                      decoration: BoxDecoration(
-                        borderRadius: borderRMax,
-                        border: Border.all(color: AppColor.borderGray),
-                      ),
-                      child: const Text('Java', style: h13Manrope,),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(right: 5),
-                      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                      decoration: BoxDecoration(
-                        borderRadius: borderRMax,
-                        border: Border.all(color: AppColor.borderGray),
-                      ),
-                      child: const Text('Python', style: h13Manrope,),
-                    ),
-                  ],
-                ),
+              Row(
+                children: [
+                  Image.asset('lib/utils/assets/icons/calendar.png'),
+                  SizedBox(width: 4),
+                  Text('Срок обучения: ${widget.duration}', style: h16Manrope,),
+                ],
               ),
               const SizedBox(height: 16),
-              Text('Срок обучения: ${duration} месяца', style: h16Manrope,),
-              const SizedBox(height: 16),
-              Text('$numLectures Видеолекций', style: h16Manrope,),
+              Row(
+                children: [
+                  Image.asset('lib/utils/assets/icons/play.png'),
+                  SizedBox(width: 4),
+                  Text('${widget.numLectures} Видеолекций', style: h16Manrope,),
+                ],
+              ),
               const SizedBox(height: 30),
               GestureDetector(
                 onTap: () {},
@@ -100,7 +84,7 @@ class CoursesCard extends StatelessWidget {
                   children: [
                     Flexible(
                       child: GestureDetector(
-                        onTap: onPressed,
+                        onTap: widget.onPressed,
                         child: Container(
                           margin: EdgeInsets.symmetric(horizontal: 10),
                           height: 50,
@@ -110,19 +94,18 @@ class CoursesCard extends StatelessWidget {
                             borderRadius: borderR10,
                             border: Border.all(color: AppColor.mainBlue)
                           ),
-                          child: Center(child: Text(buttonText, style: h16ManropeB,)),
+                          child: Center(child: Text(widget.buttonText, style: h16ManropeB,)),
                         ),
                       ),
                     ),
-                    isPaid ? Padding(
+                    widget.isPaid ? Padding(
                       padding: p20h,
-                      child: Text('${price}с/мес', style: h14Manrope,),
+                      child: Text('${widget.price}с/мес', style: h14Manrope,),
                     ) : Text(''),
                   ],
                 ),
               ),
               const SizedBox(height: 4),
-              // const Text('JavaScript'),
             ],
           ),
         ),

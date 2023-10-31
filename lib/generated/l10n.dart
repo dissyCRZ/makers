@@ -139,6 +139,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Вход в аккаунт`
+  String get login {
+    return Intl.message(
+      'Вход в аккаунт',
+      name: 'login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Забыли пароль?`
+  String get forgot_password {
+    return Intl.message(
+      'Забыли пароль?',
+      name: 'forgot_password',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -12,7 +12,7 @@ class FreeCoursesDetalPage extends StatefulWidget {
 
 class _FreeCoursesDetalPageState extends State<FreeCoursesDetalPage> {
   late YoutubePlayerController controller;
-  final videoUrl = 'https://www.youtube.com/watch?v=YMx8Bbev6T4';
+  final videoUrl = 'https://www.youtube.com/watch?v=mw8Iodykrhs&list=PL1Np8IlRHrq_TdI4I15Ai_CywXz86phAc';
 
   @override
   void initState() {
@@ -50,7 +50,7 @@ class _FreeCoursesDetalPageState extends State<FreeCoursesDetalPage> {
       builder: (context, player) => Scaffold(
           body: Column(
             children: [
-              player
+              player,
             ],
           ),
         ),

@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final paidCourses = paidCoursesFromJson(jsonString);
-
 import 'dart:convert';
 
 List<PaidCourses> paidCoursesFromJson(String str) => List<PaidCourses>.from(json.decode(str).map((x) => PaidCourses.fromJson(x)));
@@ -15,7 +11,8 @@ class PaidCourses {
   String duration;
   int numLectures;
   DateTime startDate;
-  String price;
+  int price;
+  int category;
 
   PaidCourses({
     required this.id,
@@ -25,6 +22,7 @@ class PaidCourses {
     required this.numLectures,
     required this.startDate,
     required this.price,
+    required this.category,
   });
 
   factory PaidCourses.fromJson(Map<String, dynamic> json) => PaidCourses(
@@ -35,6 +33,7 @@ class PaidCourses {
     numLectures: json["num_lectures"],
     startDate: DateTime.parse(json["start_date"]),
     price: json["price"],
+    category: json["category"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -45,5 +44,6 @@ class PaidCourses {
     "num_lectures": numLectures,
     "start_date": "${startDate.year.toString().padLeft(4, '0')}-${startDate.month.toString().padLeft(2, '0')}-${startDate.day.toString().padLeft(2, '0')}",
     "price": price,
+    "category": category,
   };
 }

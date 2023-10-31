@@ -1,95 +1,252 @@
+import 'package:configurable_expansion_tile_null_safety/configurable_expansion_tile_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:makers_app/features/login/widgets/button_login.dart';
+import 'package:makers_app/features/video_player/widgets/recommendation_card.dart';
 import 'package:makers_app/utils/config/colors.dart';
 import 'package:makers_app/utils/config/paddings.dart';
+import 'package:makers_app/utils/config/texts.dart';
+import 'package:makers_app/utils/widgets/custom_button.dart';
 import 'package:readmore/readmore.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideoPlayer extends StatefulWidget {
-  const VideoPlayer({super.key});
+  const VideoPlayer({super.key, required this.videoUrl, required this.title, required this.text});
+  final String videoUrl;
+  final String title;
+  final String text;
+
 
   @override
   State<VideoPlayer> createState() => _VideoPlayerState();
 }
 
 class _VideoPlayerState extends State<VideoPlayer> {
+  bool favorite = false;
+
+  late YoutubePlayerController controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    String url = widget.videoUrl;
+    controller = YoutubePlayerController(
+      initialVideoId: YoutubePlayer.convertUrlToId(url)!,
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+      )
+    );
+  }
+
+  @override
+  void deactivate() {
+    controller.pause();
+    super.deactivate();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: const Icon(
-          Icons.backspace_outlined,
-          color: Colors.black,
+    return SafeArea(
+      child: YoutubePlayerBuilder(
+        player: YoutubePlayer(
+          controller: controller,
+          progressColors: ProgressBarColors(
+            bufferedColor: Colors.orange,
+            playedColor: AppColor.mainBlue,
+            backgroundColor: Colors.white,
+            handleColor: AppColor.mainBlue,
+          ),
         ),
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      body: Padding(
-        padding: p20h,
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  children: [
-                    const Text(
-                      'JavaScript',
-                      style: TextStyle(
-                          fontSize: 26,
-                          fontWeight: FontWeight.w500,
-                          decoration: TextDecoration.underline,
-                          decorationColor: Colors.orange,
-                          decorationThickness: 3),
+        builder: (context, player) => Scaffold(
+          appBar: AppBar(
+            leading: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Image.asset('lib/utils/assets/icons/back_arrow.png'),
+            ),
+            backgroundColor: Colors.white,
+            elevation: 0,
+          ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: p20h,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Column(
+                        children: [
+                          Text(
+                            'Backend',
+                            style: TextStyle(
+                                fontSize: 26,
+                                fontWeight: FontWeight.w500,
+                                //decoration: TextDecoration.underline,
+                                //decorationColor: Colors.orange,
+                                decorationThickness: 3),
+                          ),
+                          // Container(
+                          //   width: 200,
+                          //   height: 3,
+                          //   color: Colors.blue,
+                          // )
+                        ],
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            favorite ? favorite = false : favorite = true;
+                          });
+                        },
+                        child: favorite ? Image.asset('lib/utils/assets/icons/favorite_true.png') : Image.asset('lib/utils/assets/icons/favorite_false.png'),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Container(
+                    child: player,
+                  ),
+                  const SizedBox(height: 30),
+                  ReadMoreText(
+                    'Backend-разработчик – это специалист, который занимается созданием и поддержкой серверной части веб-приложений. Backend (также известный как серверная часть) отвечает за обработку запросов пользователя, взаимодействие с базами данных, бизнес-логику и обеспечение безопасности данных.',
+                    trimLines: 3,
+                    trimMode: TrimMode.Line,
+                    trimCollapsedText: ' ещё',
+                    trimExpandedText: ' меньше',
+                    moreStyle: TextStyle(color: Colors.grey[600]),
+                    lessStyle: TextStyle(color: Colors.grey[600]),
+                  ),
+                  const SizedBox(height: 20),
+                  // CustomButton(
+                  //     onPressed: () {},
+                  //     bc: AppColor.mainBlue,
+                  //     text: 'Пройти тест',
+                  // ),
+                  // const SizedBox(height: 20),
+
+                  //========================================================
+
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: ExpansionTile(
+                      backgroundColor: Color(0xFFE0E5ED),
+                      collapsedBackgroundColor: Color(0xFFE0E5ED),
+                      iconColor: AppColor.mainBlue,
+                      collapsedIconColor: AppColor.mainBlue,
+                      title: Text('Видеолекции', style: h14ManropeB),
+                      children: [
+                        ListView.separated(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: 5,
+                          itemBuilder: (context, index) => RecommendationCard(index: index),
+                          separatorBuilder: (context, index) => const SizedBox(height: 10),
+                        )
+                      ],
                     ),
-                    // Container(
-                    //   width: 200,
-                    //   height: 3,
-                    //   color: Colors.blue,
-                    // )
-                  ],
-                ),
-                const Icon(
-                  Icons.favorite,
-                  color: Colors.orange,
-                  size: 26,
-                )
-              ],
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: ExpansionTile(
+                      backgroundColor: Color(0xFFE0E5ED),
+                      collapsedBackgroundColor: Color(0xFFE0E5ED),
+                      iconColor: AppColor.mainBlue,
+                      collapsedIconColor: AppColor.mainBlue,
+                      title: Text('Рекомендации', style: h14ManropeB),
+                      children: [
+                        ListView.separated(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: 5,
+                          itemBuilder: (context, index) => RecommendationCard(index: index),
+                          separatorBuilder: (context, index) => const SizedBox(height: 10),
+                        )
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: ExpansionTile(
+                      backgroundColor: Color(0xFFE0E5ED),
+                      collapsedBackgroundColor: Color(0xFFE0E5ED),
+                      iconColor: AppColor.mainBlue,
+                      collapsedIconColor: AppColor.mainBlue,
+                      title: Text('Комментарии', style: h14ManropeB),
+                      children: [
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: 0,
+                          itemBuilder: (context, index) => RecommendationCard(index: index),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  //========================================================
+
+                  const SizedBox(height: 20),
+
+                  //========================================================
+
+
+
+                  //========================================================
+
+                  // const SizedBox(height: 20),
+                  // Container(
+                  //   height: 50,
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(10),
+                  //     color: const Color(0xFFE0E5ED)
+                  //   ),
+                  //     child: const Row(
+                  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //       children: [
+                  //         Padding(
+                  //           padding: p20h,
+                  //           child: Text('Рекомендации', style: h14ManropeB,),
+                  //         ),
+                  //         Padding(
+                  //           padding: p20h,
+                  //           child: Icon(Icons.keyboard_arrow_down, color: AppColor.mainBlue,),
+                  //         )
+                  //       ],
+                  //   ),
+                  // ),
+                  const SizedBox(height: 20),
+                  // Expanded(
+                  //   child: ListView.separated(
+                  //     itemCount: 4,
+                  //     itemBuilder: (context, index) => const RecommendationCard(),
+                  //     separatorBuilder: (context, index) => const SizedBox(height: 10),
+                  //   ),
+                  // ),
+                  // SingleChildScrollView(
+                  //   child: ListView.separated(
+                  //       itemCount: 3,
+                  //       itemBuilder: (context, index) => RecommendationCard(),
+                  //       separatorBuilder: (context, index) => SizedBox(height: 10),
+                  //   ),
+                  // ),
+                ],
+              ),
             ),
-            const SizedBox(height: 20),
-            Container(
-              height: 190,
-              width: double.infinity,
-              color: Colors.orange,
-            ),
-            const SizedBox(height: 30),
-            Text('data'),
-            ReadMoreText(
-              'JavaScript - это высокоуровневый язык программирования, который используется для создания интерактивных и динамических веб-страниц. Он позволяет добавлять функциональность на стороне клиента, взаимодействовать с пользователем и манипулировать содержимым веб-страницы. JavaScript также может быть использован для разработки серверных приложений, мобильных приложений и настольных приложений.',
-              trimLines: 3,
-              trimMode: TrimMode.Line,
-              trimCollapsedText: ' ещё',
-              trimExpandedText: ' меньше',
-              moreStyle: TextStyle(color: Colors.grey[600]),
-              lessStyle: TextStyle(color: Colors.grey[600]),
-            ),
-            const SizedBox(height: 20),
-            ButtonLogin(onPressed: () {}, bc: AppColor.mainBlue)
-            // RichText(text: TextSpan(
-            //   style: TextStyle(color: Colors.black),
-            //   children: <TextSpan> [
-            //     TextSpan(
-            //       text: 'JavaScript - это высокоуровневый язык программирования, который используется для создания интерактивных и динамических веб-страниц. Он позволяет добавлять функциональность на стороне клиента, взаимодействовать с пользователем и манипулировать содержимым веб-страницы. JavaScript также может быть использован для разработки серверных приложений, мобильных приложений и настольных приложений.',
-            //
-            //     )
-            //   ]
-            // ),
-            // ),
-            // Text(
-            //   'JavaScript - это высокоуровневый язык программирования, который используется для создания интерактивных и динамических веб-страниц. Он позволяет добавлять функциональность на стороне клиента, взаимодействовать с пользователем и манипулировать содержимым веб-страницы. JavaScript также может быть использован для разработки серверных приложений, мобильных приложений и настольных приложений.',
-            //   maxLines: 3,
-            //   overflow: TextOverflow.ellipsis,
-            // ),
-          ],
+          ),
         ),
       ),
     );

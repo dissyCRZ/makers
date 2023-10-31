@@ -71,6 +71,33 @@ const h18Manrope = TextStyle(
   fontFamily: "Manrope",
 );
 
+const h20Manrope = TextStyle(
+  fontSize: 20,
+  color: AppColor.black,
+  fontWeight: FontWeight.w600,
+  fontFamily: "Manrope",
+);
+
+const h22Manrope = TextStyle(
+  fontSize: 22,
+  color: AppColor.black,
+  fontWeight: FontWeight.w600,
+  fontFamily: "Manrope",
+);
+
+const h22ManropeB = TextStyle(
+  fontSize: 22,
+  color: AppColor.mainBlue,
+  fontWeight: FontWeight.w700,
+  fontFamily: "Manrope",
+);
+const h24ManropeB = TextStyle(
+  fontSize: 24,
+  color: AppColor.mainBlue,
+  fontWeight: FontWeight.w600,
+  fontFamily: "Manrope",
+);
+
 const h24Manrope = TextStyle(
 fontSize: 24,
 color: AppColor.black,

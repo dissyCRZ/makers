@@ -91,7 +91,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           ComeInButton(
                             label: S.of(context).come_in,
                             onPressed: () async {
-                              await Navigator.of(context).pushReplacement(MaterialPageRoute(
+                              await Navigator.of(context).push(MaterialPageRoute(
                                 builder: (_) => LoginPage(),
                               ));
                             },

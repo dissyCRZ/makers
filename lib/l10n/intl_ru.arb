@@ -7,5 +7,7 @@
   "or": "или",
   "in_with_google": "Войти через Google",
   "do_u_have_account": "У вас уже есть аккаунт?",
-  "come_in": "Войти"
+  "come_in": "Войти",
+  "login": "Вход в аккаунт",
+  "forgot_password": "Забыли пароль?"
 }

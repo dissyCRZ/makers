@@ -80,18 +80,6 @@ class _MyTabBarState extends State<MyTabBar> with SingleTickerProviderStateMixin
                 ),
               ),
             ),
-            // TabBarView(
-            //     controller: tabController,
-            //     children: [
-            //       FreeCoursesPage(),
-            //       PaidCoursesPage(),
-            //     ]
-            // )
-            // Container(
-            //   height: 25,
-            //   color: Colors.transparent,
-            // ),
-            //SizedBox(height: 25),
             Expanded(
                 child: TabBarView(
                   controller: tabController,

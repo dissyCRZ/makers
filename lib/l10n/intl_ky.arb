@@ -7,5 +7,7 @@
   "or": "или КГ",
   "in_with_google": "Войти через Google КГ",
   "do_u_have_account": "У вас уже есть аккаунт? КГ",
-  "come_in": "Войти КГ"
+  "come_in": "Войти КГ",
+  "login": "Вход в аккаунт КГ",
+  "forgot_password": "Забыли пароль? КГ"
 }

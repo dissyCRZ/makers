@@ -18,9 +18,6 @@ class _WelcomeState extends State<Welcome> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // appBar: AppBar(
-        //   title: const Text('Здравствуйте'),
-        // ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:makers_app/features/home/data/client/free_courses_client.dart';
 import 'package:makers_app/features/home/data/client/paid_courses_client.dart';
 import 'package:makers_app/features/home/data/models/paid_courses.dart';
+import 'package:makers_app/features/home/pages/paid_course_registr.dart';
 import 'package:makers_app/features/home/widgets/courses_card.dart';
 import 'package:makers_app/utils/config/colors.dart';
 
@@ -33,11 +33,6 @@ class _PaidCoursesPageState extends State<PaidCoursesPage> {
 
   @override
   Widget build(BuildContext context) {
-    // return FutureBuilder(
-    //   future: FreeCoursesClient.get(),
-    //     builder: builder
-    // )
-
     return isLoaded ? ListView.separated(
       itemCount: paidCourses!.length,
       separatorBuilder: (context, index) {
@@ -52,10 +47,14 @@ class _PaidCoursesPageState extends State<PaidCoursesPage> {
               duration: paidCourses![index].duration,
               numLectures: paidCourses![index].numLectures,
               price: paidCourses![index].price,
-              videoUrl: 'video_url',
               buttonText: 'Записаться',
               isPaid: true,
-              onPressed: () {  },
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => PaidCourseRegistr(),
+                ),
+                );
+              },
             ),
           ],
         );
@@ -65,44 +64,5 @@ class _PaidCoursesPageState extends State<PaidCoursesPage> {
         color: AppColor.mainBlue,
       ),
     );
-
-    //=================================
-    return Visibility(
-      visible: isLoaded,
-      replacement: const Center(
-        child: CircularProgressIndicator(),
-      ),
-      child: ListView.separated(
-        itemCount: paidCourses!.length,
-        separatorBuilder: (context, index) {
-          return const SizedBox(height: 15);
-        },
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              CoursesCard(
-                id: paidCourses![index].id,
-                title: paidCourses![index].title,
-                duration: paidCourses![index].duration,
-                numLectures: paidCourses![index].numLectures,
-                price: paidCourses![index].price,
-                videoUrl: 'video_url',
-                buttonText: 'Записаться',
-                isPaid: true,
-                onPressed: () {  },
-              ),
-            ],
-          );
-        },
-      ),
-    );
-    //=================================
-
-    // return Column(
-    //   children: [
-    //     CoursesCard(),
-    //     CoursesCard(),
-    //   ],
-    // );
   }
 }
